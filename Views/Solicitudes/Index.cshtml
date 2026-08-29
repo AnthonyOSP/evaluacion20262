@@ -1,0 +1,50 @@
+@model IEnumerable<evaluacion20262.Models.SolicitudServicio>
+
+@{
+    ViewData["Title"] = "Solicitudes de servicio";
+}
+
+<h1>Solicitudes de servicio</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nueva solicitud</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info" role="alert">
+        No hay solicitudes registradas.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Cliente</th>
+                    <th>Teléfono</th>
+                    <th>Distrito</th>
+                    <th>Tipo de servicio</th>
+                    <th>Descripción</th>
+                    <th>Fecha de registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var solicitud in Model)
+                {
+                    <tr>
+                        <td>@solicitud.Id</td>
+                        <td>@solicitud.Cliente</td>
+                        <td>@solicitud.Telefono</td>
+                        <td>@solicitud.Distrito</td>
+                        <td>@solicitud.TipoServicio</td>
+                        <td>@solicitud.Descripcion</td>
+                        <td>@solicitud.FechaRegistro.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
