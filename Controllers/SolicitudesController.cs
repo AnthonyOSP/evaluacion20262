@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using evaluacion20262.Data;
 using evaluacion20262.Models;
 
@@ -11,6 +12,18 @@ public class SolicitudesController : Controller
     public SolicitudesController(ApplicationDbContext context)
     {
         _context = context;
+    }
+
+    // GET: /Solicitudes
+    public async Task<IActionResult> Index()
+    {
+        // Consulta LINQ contra SQLite: trae todas las solicitudes,
+        // ordenadas de la mas reciente a la mas antigua.
+        var solicitudes = await _context.SolicitudesServicio
+            .OrderByDescending(s => s.FechaRegistro)
+            .ToListAsync();
+
+        return View(solicitudes);
     }
 
     // GET: /Solicitudes/Create
